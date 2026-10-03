@@ -19,6 +19,13 @@ const config = {
     main: "./src/index",
   },
   plugins: [new HtmlWebpackPlugin()],
+  devServer: {
+    hot: true,
+  },
+  lazyCompilation: {
+    entries: true,
+    imports: false,
+  },
   output: {
     clean: true,
     path: isRunningWebpack
@@ -34,19 +41,11 @@ const config = {
           fullySpecified: false,
         },
       },
-      {
-        test: /\.css$/,
-        type: "css/auto",
-      },
     ],
   },
-  ...(isRunningWebpack
-    ? {
-        experiments: {
-          css: true,
-        },
-      }
-    : {}),
+  experiments: {
+    deferImport: true,
+  },
 };
 
 export default config;
